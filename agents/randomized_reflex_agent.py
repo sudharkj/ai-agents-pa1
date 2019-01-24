@@ -1,22 +1,35 @@
+# randomized_reflex_agent.py
 import random
 
-from model.state import State
-from model.action import Action
+from states.percept import Percept
+from states.action import Action
 
 
 class RandomizedReflexAgent:
     """
-    Simple Reflex Agent
+    Randomized Reflex Agent
     """
 
     def __init__(self):
-        print("initialized simple reflex agent")
+        print("Initialized randomized reflex agent.")
 
     def action(self, percept):
-        if percept is State.DIRTY:
-            return Action.CLEAN
+        """
+        Get the action for the corresponding input percept.
+        :param percept: input percept state
+        :return: action to be taken
+        """
+
+        if percept is Percept.DIRTY:
+            # {@code SUCK} if the percept is {@code DIRTY}
+            return Action.SUCK
+
         # if percept is State.HOME:
-        #     return random.choice([Action.FORWARD, Action.STOP])
-        if percept is State.WALL:
+        #     return Action.STOP
+
+        if percept is Percept.WALL:
+            # randomly select a turn from {@code [LEFT, RIGHT]} if the percept is {@code WALL}
             return random.choice([Action.LEFT, Action.RIGHT])
-        return Action.FORWARD
+
+        # randomly select an action from [{@code LEFT}, {@code RIGHT}, {@code FORWARD}] in all other cases
+        return random.choice([Action.LEFT, Action.RIGHT, Action.FORWARD])
